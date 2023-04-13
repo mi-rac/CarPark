@@ -6,6 +6,6 @@ public class CarParkSimulation {
 
     public static void main(String[] args) {
         // Create the car park
-        CarPark carPark = new CarPark();
+        CarPark carPark = CarPark.getInstance();
     }
 }

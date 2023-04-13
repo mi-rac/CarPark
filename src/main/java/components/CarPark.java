@@ -1,11 +1,15 @@
 package components;
 
-public class CarPark
+import java.util.List;
+
+public class CarPark implements CarParkConfig
 {
     private static CarPark instance;
-    private int occupiedSpots;
-    private int maxCapacity;
-    //private List<Sensor> sensors;
+
+    private List<CarParkingSession> cars;
+    private List<MotorcycleParkingSession> motorcycles;
+    private List<VanParkingSession> vans;
+
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
     //private DataHandler dataHandler;
@@ -18,4 +22,5 @@ public class CarPark
         }
         return instance;
     }
+
 }
