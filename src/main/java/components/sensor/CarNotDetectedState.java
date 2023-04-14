@@ -9,12 +9,12 @@ class CarNotDetectedState implements SensorState
     }
     // Transition to the CarDetectedState when a car is detected
     @Override
-    public void detectCar() {
+    public void detectVehicle() {
         System.out.println("Car detected by sensor");
         sensor.setState(new CarDetectedState(sensor));
     }
     @Override
-    public void clearCar() {
+    public void clearVehicle() {
         // Do nothing when car is not detected
     }
 }

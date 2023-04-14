@@ -6,9 +6,17 @@ public abstract class Vehicle {
     private String regNum;
     private String type;
     private ParkingSession session;
-    protected Vehicle(String regNum, String type) {
+
+    protected Vehicle(String regNum, String type, ParkingSession session) {
         setRegNum(regNum);
         setType(type);
+        setSession(session);
+    }
+    public ParkingSession getSession() {
+        return session;
+    }
+    protected void setSession(ParkingSession session) {
+        this.session = session;
     }
     public String getRegNum() {
         return regNum;

@@ -1,26 +1,38 @@
 package components.sensor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Sensor class - represents a sensor that detects the presence of a car
-public class Sensor {
+public class Sensor implements SensorState{
     private SensorState state;
-    protected Sensor() {
+    private List<SensorObserver> observers = new ArrayList<>();
+    public Sensor() {
         state = new CarNotDetectedState(this);
+    }
+    public void registerObserver(SensorObserver observer) {
+        observers.add(observer);
+    }
+
+    public void unregisterObserver(SensorObserver observer) {
+        observers.remove(observer);
     }
     // Set the state of the Sensor
     protected void setState(SensorState state) {
         this.state = state;
     }
-    // Check if a car is present
-    protected boolean isCarPresent() {
-        // Let the current state handle the car detection logic
-        return state instanceof CarDetectedState;
-    }
     // Detect a car
-    protected void detectCar() {
-        state.detectCar();
+    public void detectVehicle() {
+        for (SensorObserver observer : observers) {
+            observer.sensorUpdate(true);
+        }
+        state.detectVehicle();
     }
     // Clear a car from the sensor
-    protected void clearCar() {
-        state.clearCar();
+    public void clearVehicle() {
+        for (SensorObserver observer : observers) {
+            observer.sensorUpdate(false);
+        }
+        state.clearVehicle();
     }
 }
