@@ -12,6 +12,11 @@ public class ParkingCapacity
         capacity.put("van", 6);
     }};
 
+    static {
+        // force the class to be loaded
+        System.out.println("loading dependencies.");
+    }
+
     public static Integer getCapacity(String type) {
         return capacity.get(type);
     }
