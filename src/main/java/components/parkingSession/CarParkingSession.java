@@ -1,4 +1,4 @@
-package components.parkingData;
+package components.parkingSession;
 
 public class CarParkingSession extends ParkingSession
 {

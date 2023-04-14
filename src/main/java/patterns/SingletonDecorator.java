@@ -6,7 +6,6 @@ public class SingletonDecorator<T> {
     private T instance;
 
     public SingletonDecorator() {
-        super();
         instance = null;
     }
 

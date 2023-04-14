@@ -1,4 +1,4 @@
-package components.parkingData;
+package components.carPark;
 
 import components.vehicle.Vehicle;
 

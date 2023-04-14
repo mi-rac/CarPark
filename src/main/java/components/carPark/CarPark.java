@@ -1,9 +1,9 @@
-package components;
+package components.carPark;
 
-import components.parkingData.ParkingManager;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
+import config.CarParkConfig;
 import patterns.SingletonDecorator;
 
 public class CarPark extends SingletonDecorator<CarPark>

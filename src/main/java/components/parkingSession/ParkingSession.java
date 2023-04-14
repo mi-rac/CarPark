@@ -1,4 +1,6 @@
-package components.parkingData;
+package components.parkingSession;
+
+import config.ParkingPrices;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
