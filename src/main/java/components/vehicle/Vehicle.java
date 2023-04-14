@@ -2,20 +2,20 @@ package components.vehicle;
 
 import components.parkingSession.ParkingSession;
 
-public abstract class Vehicle<T extends ParkingSession> {
+public abstract class Vehicle {
     private String regNum;
     private String type;
-    private T session;
+    private ParkingSession session;
 
-    protected Vehicle(String regNum, String type, T session) {
+    protected Vehicle(String regNum, String type, ParkingSession session) {
         setRegNum(regNum);
         setType(type);
         setSession(session);
     }
-    public T getSession() {
+    public ParkingSession getSession() {
         return session;
     }
-    protected void setSession(T session) {
+    protected void setSession(ParkingSession session) {
         this.session = session;
     }
     public String getRegNum() {

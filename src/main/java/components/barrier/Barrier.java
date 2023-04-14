@@ -1,8 +1,9 @@
 package components.barrier;
 
-import components.sensor.EntranceSensorObserver;
+import components.sensor.SensorObserver;
+import components.userInterface.UserInterface;
 
-public class Barrier implements EntranceSensorObserver, BarrierState
+public class Barrier implements SensorObserver, BarrierState
 {
     private BarrierState state;
 
@@ -24,7 +25,7 @@ public class Barrier implements EntranceSensorObserver, BarrierState
     }
 
     @Override
-    public void entranceSensorUpdate(boolean vehiclePresent) {
+    public void sensorUpdate(boolean vehiclePresent) {
         if (!vehiclePresent) this.close();
     }
 }
