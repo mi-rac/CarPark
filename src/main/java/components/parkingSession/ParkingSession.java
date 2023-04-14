@@ -26,16 +26,16 @@ public abstract class ParkingSession
     }
     protected int calculateDifferenceInHours(){
         Duration timeInterval = Duration.between(start, end);
-        long differenceInHours = timeInterval.toHours();
+        long differenceInHours = timeInterval.toSeconds();
         return (int) differenceInHours;
     }
     protected double setPriceRate(String type){
         duration = calculateDifferenceInHours();
         if (duration > 23) {
             duration = duration % 24;
-            return ParkingPrices.dailyPrices.get(type);
+            return ParkingPrices.getRate(type, "day");
         } else {
-            return ParkingPrices.hourlyPrices.get(type);
+            return ParkingPrices.getRate(type, "hour");
         }
     }
     public void displayPrice() {

@@ -3,7 +3,7 @@ package components.carPark;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
-import config.CarParkConfig;
+import config.ParkingCapacity;
 import patterns.SingletonDecorator;
 
 public class CarPark extends SingletonDecorator<CarPark>
@@ -18,9 +18,9 @@ public class CarPark extends SingletonDecorator<CarPark>
     //private DataHandler dataHandler;
 
     private CarPark() {
-        cars = new ParkingManager<>(CarParkConfig.MAX_CARS);
-        motorcycles = new ParkingManager<>(CarParkConfig.MAX_MOTORCYCLES);
-        vans = new ParkingManager<>(CarParkConfig.MAX_VANS);
+        cars = new ParkingManager<>(ParkingCapacity.getCapacity("car"));
+        motorcycles = new ParkingManager<>(ParkingCapacity.getCapacity("motorcycle"));
+        vans = new ParkingManager<>(ParkingCapacity.getCapacity("van"));
     }
 
     public static CarPark getInstance() {
