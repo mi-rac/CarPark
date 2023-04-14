@@ -55,7 +55,7 @@ public class CarPark extends SingletonDecorator<CarPark> implements SensorObserv
                 case "motorcycle" -> vehicle = new Motorcycle(regNum);
                 case "van" -> vehicle = new Van(regNum);
             }
-            vehicle.park();
+            //vehicle.park();
         }
     }
 

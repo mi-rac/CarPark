@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ParkingCapacity
 {
-    private static final Map<String, Integer> capacity = new HashMap<String, Integer>(){static {
+    private static final HashMap<String, Integer> capacity = new HashMap<String, Integer>(){static {
         // add prices for cars, motorcycles, and vans
         capacity.put("car", 50);
         capacity.put("motorcycle", 10);
