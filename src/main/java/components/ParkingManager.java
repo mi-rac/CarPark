@@ -10,6 +10,7 @@ public class ParkingManager<T extends Vehicle>
     private int availability;
     public ParkingManager(int capacity) {
         this.capacity = capacity;
+        availability = capacity;
         vehicles = new ArrayList<>();
     }
 
