@@ -1,5 +1,6 @@
 package components.userInterface;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public interface UserInterface
@@ -21,5 +22,14 @@ public interface UserInterface
             res = value.equals(input) || res;
         }
         return res;
+    }
+
+    static String multipleChoice(String prompt, String[] choices) {
+        String input;
+        do {
+            input = getStringInput(prompt.concat(Arrays.toString(choices)));
+        }
+        while (!UserInterface.validateMultipleChoice(input, choices));
+        return input;
     }
 }

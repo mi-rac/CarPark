@@ -23,16 +23,17 @@ public class Sensor implements SensorState{
     }
     // Detect a car
     public void detectVehicle() {
+        state.detectVehicle();
         for (SensorObserver observer : observers) {
             observer.sensorUpdate(true);
         }
-        state.detectVehicle();
+
     }
     // Clear a car from the sensor
     public void clearVehicle() {
+        state.clearVehicle();
         for (SensorObserver observer : observers) {
             observer.sensorUpdate(false);
         }
-        state.clearVehicle();
     }
 }

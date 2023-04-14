@@ -1,6 +1,7 @@
 package main;
 
 import components.carPark.CarPark;
+import main.ParkingCapacity;
 
 public class CarParkSimulation {
 
