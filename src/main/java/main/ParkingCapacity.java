@@ -15,7 +15,7 @@ public class ParkingCapacity
         // add prices for cars, motorcycles, and vans
         capacity.put("car", 50);
         capacity.put("motorcycle", 10);
-        capacity.put("van", 6);
+        capacity.put("van", 2);
     }
 
     public static Integer getCapacity(String type) {

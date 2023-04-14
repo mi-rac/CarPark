@@ -1,6 +1,8 @@
 package components.barrier;
 
 
+import components.userInterface.UserInterface;
+
 public class ClosedBarrierState implements BarrierState {
     private Barrier barrier;
 
@@ -11,6 +13,7 @@ public class ClosedBarrierState implements BarrierState {
     @Override
     public void open() {
         // Set state to open
+        UserInterface.displayMessage("Entrance barrier opening.");
         barrier.setState(new OpenBarrierState(barrier));
     }
 

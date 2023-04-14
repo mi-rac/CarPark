@@ -1,8 +1,8 @@
 package components.sensor;
 
-import patterns.observe.Observer;
+import patterns.Observer;
 
-public interface SensorObserver
+public interface SensorObserver extends Observer
 {
     void sensorUpdate(boolean value);
 }

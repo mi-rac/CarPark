@@ -1,6 +1,6 @@
 package components.sensor;
 
-import patterns.observe.ObservedDecorator;
+import patterns.ObservedDecorator;
 
 // Sensor class - represents a sensor that detects the presence of a car
 public class Sensor extends ObservedDecorator<SensorObserver> implements SensorState
@@ -27,8 +27,7 @@ public class Sensor extends ObservedDecorator<SensorObserver> implements SensorS
     @Override
     public void notifyObservers(boolean value) {
         for (SensorObserver observer : super.getObserverList()) {
-            observer.sensorUpdate(true);
+            observer.sensorUpdate(value);
         }
-
     }
 }

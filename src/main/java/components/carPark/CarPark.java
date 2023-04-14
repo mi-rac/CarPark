@@ -1,5 +1,6 @@
 package components.carPark;
 
+import components.barrier.Barrier;
 import components.sensor.Sensor;
 import components.sensor.SensorObserver;
 import components.userInterface.UserInterface;
@@ -16,9 +17,10 @@ public class CarPark extends SingletonDecorator<CarPark> implements SensorObserv
     private ParkingManager<Car> carSpaces;
     private ParkingManager<Motorcycle> motorcycleSpaces;
     private ParkingManager<Van> vanSpaces;
-
     private Sensor entranceSensor;
     private Sensor exitSensor;
+    private Barrier entranceBarrier;
+    private Barrier exitBarrier;
 
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
@@ -32,37 +34,45 @@ public class CarPark extends SingletonDecorator<CarPark> implements SensorObserv
         entranceSensor = new Sensor();
         exitSensor = new Sensor();
 
+        entranceBarrier = new Barrier();
+        exitBarrier = new Barrier();
+
         entranceSensor.registerObserver(this);
+        entranceSensor.registerObserver(entranceBarrier);
     }
 
     @Override
-    public void sensorUpdate(boolean vehicleEntering) {
-        if (vehicleEntering) {
-            ParkingManager pm;
-            String regNum = UserInterface.getStringInput("Please enter registration number.");
-            String type = UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
+    public void sensorUpdate(boolean vehiclePresent) {
+        ParkingManager parkingManager = null;
+        Vehicle vehicle = null;
+        String regNum;
+        String type;
 
-            Vehicle vehicle;
+        if (vehiclePresent) {
+            regNum = UserInterface.getStringInput("Please enter registration number.");
+            type = UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
+
             switch (type) {
                 case "car" -> {
                     vehicle = new Car(regNum);
-                    pm = carSpaces;
+                    parkingManager = carSpaces;
                 }
                 case "motorcycle" -> {
                     vehicle = new Motorcycle(regNum);
-                    pm = motorcycleSpaces;
+                    parkingManager = motorcycleSpaces;
                 }
                 case "van" -> {
                     vehicle = new Van(regNum);
-                    pm = vanSpaces;
+                    parkingManager = vanSpaces;
                 }
+                default -> vehicle = new Car(regNum);
             }
-
-            //frontBarrier.raise();
-
-            UserInterface.displayMessage("Welcome. Come right through.");
-
-
+            if (parkingManager.addVehicle(vehicle)) {
+                entranceBarrier.open();
+                UserInterface.displayMessage("Welcome. Come right through.");
+            } else {
+                UserInterface.displayMessage("Sorry, no more spaces left");
+            }
         }
     }
 
@@ -70,12 +80,11 @@ public class CarPark extends SingletonDecorator<CarPark> implements SensorObserv
         entranceSensor.detectVehicle();
     }
 
-    public static CarPark getInstance() {
-        return singleton.getInstance(CarPark::new);
+    public void entranceSensorClearVehicle() {
+        entranceSensor.clearVehicle();
     }
 
-    @Override
-    public void update(boolean value) {
-
+    public static CarPark getInstance() {
+        return singleton.getInstance(CarPark::new);
     }
 }

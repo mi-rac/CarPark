@@ -1,14 +1,22 @@
 package main;
 
 import components.carPark.CarPark;
-import main.ParkingCapacity;
 
 public class CarParkSimulation {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // Create the car park
         CarPark cp = CarPark.getInstance();
         cp.entranceSensorDetectVehicle();
+        Thread.sleep(1000);
+        cp.entranceSensorClearVehicle();
 
+        cp.entranceSensorDetectVehicle();
+        Thread.sleep(1000);
+        cp.entranceSensorClearVehicle();
+
+        cp.entranceSensorDetectVehicle();
+        Thread.sleep(1000);
+        cp.entranceSensorClearVehicle();
     }
 }
