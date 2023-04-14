@@ -19,10 +19,11 @@ public abstract class ParkingSession
     protected void startSession(){
         start = LocalDateTime.now();
     }
-    protected void endSession(String type){
+    public void endSession(String type){
         end = LocalDateTime.now();
         priceRate = setPriceRate(type);
         price = duration * priceRate;
+        displayPrice();
     }
     protected int calculateDifferenceInHours(){
         Duration timeInterval = Duration.between(start, end);

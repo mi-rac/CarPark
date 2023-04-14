@@ -16,5 +16,4 @@ public abstract class ObservedDecorator<T extends Observer>
     public void unregisterObserver(T observer) {
         observerList.remove(observer);
     }
-    public abstract void notifyObservers(boolean value);
 }
