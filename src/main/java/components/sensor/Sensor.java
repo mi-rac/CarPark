@@ -1,4 +1,4 @@
-package components;
+package components.sensor;
 
 // Sensor class - represents a sensor that detects the presence of a car
 public class Sensor {

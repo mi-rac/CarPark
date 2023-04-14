@@ -1,4 +1,6 @@
-package components;
+package components.parkingData;
+
+import components.vehicle.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;

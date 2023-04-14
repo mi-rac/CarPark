@@ -1,5 +1,11 @@
 package components;
 
+import components.parkingData.ParkingManager;
+import components.vehicle.Car;
+import components.vehicle.Motorcycle;
+import components.vehicle.Van;
+import patterns.SingletonDecorator;
+
 public class CarPark extends SingletonDecorator<CarPark>
 {
     private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();

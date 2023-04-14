@@ -1,4 +1,4 @@
-package components;
+package components.parkingData;
 
 import java.util.HashMap;
 

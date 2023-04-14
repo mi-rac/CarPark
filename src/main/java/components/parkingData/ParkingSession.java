@@ -1,4 +1,4 @@
-package components;
+package components.parkingData;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

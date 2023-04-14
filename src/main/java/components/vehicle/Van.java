@@ -1,4 +1,4 @@
-package components;
+package components.vehicle;
 
 public class Van extends Vehicle
 {

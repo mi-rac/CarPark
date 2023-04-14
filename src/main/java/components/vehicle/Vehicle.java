@@ -1,4 +1,6 @@
-package components;
+package components.vehicle;
+
+import components.parkingData.ParkingSession;
 
 public abstract class Vehicle {
     private String regNum;

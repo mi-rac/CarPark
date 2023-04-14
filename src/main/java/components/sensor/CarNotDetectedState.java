@@ -1,4 +1,4 @@
-package components;
+package components.sensor;
 
 // CarNotDetectedState class - represents the state of the Sensor when a car is not detected
 class CarNotDetectedState implements SensorState
