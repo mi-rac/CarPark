@@ -3,7 +3,7 @@ package components;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public abstract class ParkingSession implements ParkingPrices
+public abstract class ParkingSession
 {
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -31,9 +31,9 @@ public abstract class ParkingSession implements ParkingPrices
         duration = calculateDifferenceInHours();
         if (duration > 23) {
             duration = duration % 24;
-            return dailyPrices.get(type);
+            return ParkingPrices.dailyPrices.get(type);
         } else {
-            return hourlyPrices.get(type);
+            return ParkingPrices.hourlyPrices.get(type);
         }
     }
     public void displayPrice() {

@@ -1,7 +1,8 @@
 package components;
 
-public class CarPark extends SingletonDecorator<CarPark> implements CarParkConfig
+public class CarPark extends SingletonDecorator<CarPark>
 {
+    private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();
     private ParkingManager<Car> cars;
     private ParkingManager<Motorcycle> motorcycles;
     private ParkingManager<Van> vans;
@@ -11,8 +12,12 @@ public class CarPark extends SingletonDecorator<CarPark> implements CarParkConfi
     //private DataHandler dataHandler;
 
     private CarPark() {
-        cars = new ParkingManager<>(parkingSpotsNo.get("car"));
-        motorcycles = new ParkingManager<>(parkingSpotsNo.get("motorcycle"));
-        vans = new ParkingManager<>(parkingSpotsNo.get("van"));
+        cars = new ParkingManager<>(CarParkConfig.MAX_CARS);
+        motorcycles = new ParkingManager<>(CarParkConfig.MAX_MOTORCYCLES);
+        vans = new ParkingManager<>(CarParkConfig.MAX_VANS);
+    }
+
+    public static CarPark getInstance() {
+        return singleton.getInstance(CarPark::new);
     }
 }

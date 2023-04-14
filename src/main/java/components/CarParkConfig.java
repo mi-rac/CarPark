@@ -1,13 +1,10 @@
 package components;
 
-import java.util.HashMap;
-
-public interface CarParkConfig
+public class CarParkConfig
 {
-    HashMap<String, int> parkingSpotsNo = new HashMap<String, int>(){static {
-        // add prices for cars, motorcycles, and vans
-        parkingSpotsNo.put("car", 50);
-        parkingSpotsNo.put("motorcycle", 10);
-        parkingSpotsNo.put("van", 6);
-    }};
+    public static final Integer MAX_CARS = 50;
+    public static final Integer MAX_MOTORCYCLES = 10;
+    public static final Integer MAX_VANS = 6;
+
+    private CarParkConfig(){}
 }

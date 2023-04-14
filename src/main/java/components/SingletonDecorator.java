@@ -7,13 +7,13 @@ public class SingletonDecorator<T> {
 
     public SingletonDecorator() {
         super();
-        this.instance = null;
+        instance = null;
     }
 
     public T getInstance(Supplier<T> constructor) {
-        if (this.instance == null) {
-            this.instance = constructor.get();
+        if (instance == null) {
+            instance = constructor.get();
         }
-        return this.instance;
+        return instance;
     }
 }
