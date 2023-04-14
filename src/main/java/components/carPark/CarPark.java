@@ -73,4 +73,9 @@ public class CarPark extends SingletonDecorator<CarPark> implements SensorObserv
     public static CarPark getInstance() {
         return singleton.getInstance(CarPark::new);
     }
+
+    @Override
+    public void update(boolean value) {
+
+    }
 }
