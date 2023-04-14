@@ -7,12 +7,10 @@ public abstract class ParkingSession implements ParkingPrices
 {
     protected LocalDateTime start;
     protected LocalDateTime end;
-    protected String regNum;
     protected int duration;
     protected double priceRate;
     protected double price;
-    protected ParkingSession(String regNum){
-        this.regNum = regNum;
+    protected ParkingSession(){
         startSession();
     }
     // Concrete methods for recording the start and end time of the session.
