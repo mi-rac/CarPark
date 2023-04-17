@@ -1,8 +1,7 @@
 package components.carPark;
 
 import components.barrier.Barrier;
-import components.sensor.*;
-import components.userInterface.UserInterface;
+import components.sensor.Sensor;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
@@ -10,16 +9,18 @@ import components.vehicle.Vehicle;
 import main.ParkingCapacity;
 import patterns.SingletonDecorator;
 
-public class CarPark extends SingletonDecorator<CarPark> implements EntranceSensorObserver, ExitSensorObserver
+public class CarPark extends SingletonDecorator<CarPark>
 {
     private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();
-    private ParkingManager<Car> carSpaces;
-    private ParkingManager<Motorcycle> motorcycleSpaces;
-    private ParkingManager<Van> vanSpaces;
-    private Sensor entranceSensor;
+    ParkingManager<Car> carSpaces;
+    ParkingManager<Motorcycle> motorcycleSpaces;
+    ParkingManager<Van> vanSpaces;
+    private Sensor entrySensor;
     private Sensor exitSensor;
-    private Barrier entranceBarrier;
+    private Barrier entryBarrier;
     private Barrier exitBarrier;
+    private EntrySignalHandler entrySignalHandler;
+    private ExitSignalHandler exitSignalHandler;
 
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
@@ -30,80 +31,33 @@ public class CarPark extends SingletonDecorator<CarPark> implements EntranceSens
         motorcycleSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("motorcycle"));
         vanSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("van"));
 
-        entranceSensor = new EntraceSensor();
-        exitSensor = new ExitSensor();
+        entrySensor = new Sensor();
+        exitSensor = new Sensor();
 
-        entranceBarrier = new Barrier();
+        entryBarrier = new Barrier();
         exitBarrier = new Barrier();
 
-        entranceSensor.registerObserver(this);
-        entranceSensor.registerObserver(entranceBarrier);
+        entrySignalHandler = new EntrySignalHandler();
+        exitSignalHandler = new ExitSignalHandler();
 
-        exitSensor.registerObserver(this);
+        entrySensor.registerObserver(entrySignalHandler);
+        entrySensor.registerObserver(entryBarrier);
+
+        exitSensor.registerObserver(exitSignalHandler);
         exitSensor.registerObserver(exitBarrier);
     }
 
-    @Override
-    public void entranceSensorUpdate(boolean vehiclePresent) {
-        ParkingManager parkingManager = null;
-        Vehicle vehicle;
-        String regNum;
-        String type;
-
-        if (vehiclePresent) {
-            regNum = UserInterface.getStringInput("Please enter registration number.");
-            type = UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
-
-            switch (type) {
-                case "car" -> {
-                    vehicle = new Car(regNum);
-                    parkingManager = carSpaces;
-                }
-                case "motorcycle" -> {
-                    vehicle = new Motorcycle(regNum);
-                    parkingManager = motorcycleSpaces;
-                }
-                case "van" -> {
-                    vehicle = new Van(regNum);
-                    parkingManager = vanSpaces;
-                }
-                default -> vehicle = new Car(regNum);
-            }
-            if (parkingManager.addVehicle(vehicle)) {
-                entranceBarrier.open();
-                UserInterface.displayMessage("Welcome. Come right through.");
-            } else {
-                UserInterface.displayMessage("Sorry, no more spaces left");
-            }
-        }
+    public void entrySensorVehiclePresent(boolean value) {
+        entrySensorVehiclePresent(value, null);
     }
-
-    @Override
-    public void exitSensorUpdate(Vehicle vehicle) {
-        ParkingManager parkingManager = null;
-        for (ParkingManager<?> pm : new ParkingManager[]{carSpaces, motorcycleSpaces, vanSpaces}) {
-            if (pm.getVehicles().contains(vehicle)) {
-                parkingManager = pm;
-            }
-        }
-        vehicle.getSession().endSession(vehicle.getType());
-        parkingManager.removeVehicle(vehicle);
+    public void exitSensorClearVehicle(boolean value) {
+        entrySensor.changeSensorState(false);
     }
-
-    public void entranceSensorDetectVehicle() {
-        entranceSensor.detectVehicle();
+    public void entrySensorVehiclePresent(boolean value, Vehicle vehicle) {
+        entrySensor.changeSensorState(value, vehicle);
     }
-
-    public void entranceSensorClearVehicle() {
-        entranceSensor.clearVehicle();
-    }
-
-    public void exitSensorDetectVehicle(Vehicle vehicle) {
-        exitSensor.detectVehicle();
-    }
-
-    public void exitSensorClearVehicle() {
-        exitSensor.clearVehicle();
+    public void exitSensorVehiclePresent(boolean value, Vehicle vehicle) {
+        exitSensor.changeSensorState(value, vehicle);
     }
 
     public static CarPark getInstance() {

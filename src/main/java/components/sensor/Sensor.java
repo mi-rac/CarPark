@@ -5,7 +5,7 @@ import patterns.ObservedDecorator;
 import patterns.Observer;
 
 // Sensor class - represents a sensor that detects the presence of a car
-public abstract class Sensor<T extends Observer> extends ObservedDecorator<T> implements SensorState
+public class Sensor<T extends Observer> extends ObservedDecorator<T>
 {
     private SensorState state;
 
@@ -16,17 +16,12 @@ public abstract class Sensor<T extends Observer> extends ObservedDecorator<T> im
     protected void setState(SensorState state) {
         this.state = state;
     }
+    public void changeSensorState(boolean sensing) {
+        changeSensorState(sensing, null);
+    }
     // Detect a car
-    public void detectVehicle() {
+    public void changeSensorState(boolean sensing, Vehicle vehicle) {
         state.detectVehicle();
-    }
-    public void detectVehicle(Vehicle vehicle) {
-        state.detectVehicle();
-        notifyObservers(true);
-    }
-    // Clear a car from the sensor
-    public void clearVehicle() {
-        state.clearVehicle();
-        notifyObservers(false);
+        notifyObservers(sensing, vehicle);
     }
 }

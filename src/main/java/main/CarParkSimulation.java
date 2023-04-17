@@ -7,16 +7,16 @@ public class CarParkSimulation {
     public static void main(String[] args) throws InterruptedException {
         // Create the car park
         CarPark cp = CarPark.getInstance();
-        cp.entranceSensorDetectVehicle();
+        cp.entrySensorDetectVehicle();
         Thread.sleep(1000);
-        cp.entranceSensorClearVehicle();
+        cp.entrySensorClearVehicle();
 
-        cp.entranceSensorDetectVehicle();
+        cp.entrySensorDetectVehicle();
         Thread.sleep(1000);
-        cp.entranceSensorClearVehicle();
+        cp.entrySensorClearVehicle();
 
-        cp.entranceSensorDetectVehicle();
+        cp.entrySensorDetectVehicle();
         Thread.sleep(1000);
-        cp.entranceSensorClearVehicle();
+        cp.entrySensorClearVehicle();
     }
 }
