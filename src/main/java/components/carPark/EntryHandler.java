@@ -8,10 +8,10 @@ import components.vehicle.Van;
 import components.vehicle.Vehicle;
 import patterns.Observer;
 
-public class EntrySignalHandler implements Observer {
+public class EntryHandler implements Observer {
     CarPark cp = CarPark.getInstance();
     public void registerChange(boolean value, Vehicle vehicle) {
-        ParkingManager parkingManager = null;
+        ParkingList parkingList = null;
         String regNum;
         String type;
 
@@ -23,29 +23,27 @@ public class EntrySignalHandler implements Observer {
                 switch (type) {
                     case "car" -> {
                         vehicle = new Car(regNum);
-                        parkingManager = cp.carSpaces;
+                        parkingList = cp.carSpaces;
                     }
                     case "motorcycle" -> {
                         vehicle = new Motorcycle(regNum);
-                        parkingManager = cp.motorcycleSpaces;
+                        parkingList = cp.motorcycleSpaces;
                     }
                     case "van" -> {
                         vehicle = new Van(regNum);
-                        parkingManager = cp.vanSpaces;
+                        parkingList = cp.vanSpaces;
                     }
                     default -> vehicle = new Car(regNum);
                 }
             }
-            if (parkingManager.addVehicle(vehicle)) {
+            if (parkingList.addVehicle(vehicle)) {
                 cp.entryBarrier.open();
                 UserInterface.displayMessage("Welcome. Come right through.");
             } else {
                 UserInterface.displayMessage("Sorry, no more spaces left");
             }
         } else {
-
-
-
+            cp.entryBarrier.close();
         }
     }
 }

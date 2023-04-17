@@ -12,24 +12,25 @@ import patterns.SingletonDecorator;
 public class CarPark extends SingletonDecorator<CarPark>
 {
     private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();
-    ParkingManager<Car> carSpaces;
-    ParkingManager<Motorcycle> motorcycleSpaces;
-    ParkingManager<Van> vanSpaces;
+
+    ParkingList<Car> carSpaces;
+    ParkingList<Motorcycle> motorcycleSpaces;
+    ParkingList<Van> vanSpaces;
     Sensor entrySensor;
     Sensor exitSensor;
     Barrier entryBarrier;
     Barrier exitBarrier;
-    EntrySignalHandler entrySignalHandler;
-    ExitSignalHandler exitSignalHandler;
+    EntryHandler entrySignalHandler;
+    ExitHandler exitSignalHandler;
 
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
     //private DataHandler dataHandler;
 
     private CarPark() {
-        carSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("car"));
-        motorcycleSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("motorcycle"));
-        vanSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("van"));
+        carSpaces = new ParkingList<>(ParkingCapacity.getCapacity("car"));
+        motorcycleSpaces = new ParkingList<>(ParkingCapacity.getCapacity("motorcycle"));
+        vanSpaces = new ParkingList<>(ParkingCapacity.getCapacity("van"));
 
         entrySensor = new Sensor();
         exitSensor = new Sensor();
@@ -37,8 +38,8 @@ public class CarPark extends SingletonDecorator<CarPark>
         entryBarrier = new Barrier();
         exitBarrier = new Barrier();
 
-        entrySignalHandler = new EntrySignalHandler();
-        exitSignalHandler = new ExitSignalHandler();
+        entrySignalHandler = new EntryHandler();
+        exitSignalHandler = new ExitHandler();
 
         entrySensor.registerObserver(entrySignalHandler);
         entrySensor.registerObserver(entryBarrier);

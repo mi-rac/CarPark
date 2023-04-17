@@ -1,5 +1,6 @@
 package components.parkingSession;
 
+import components.userInterface.UserInterface;
 import main.ParkingPrices;
 
 import java.time.Duration;
@@ -39,8 +40,8 @@ public abstract class ParkingSession
             return ParkingPrices.getRate(type, "hour");
         }
     }
-    public void displayPrice() {
-        if (end != null) System.out.println("Total price for the parking session: " + price);
-        else System.out.println("Session is not over yet.");
+    protected void displayPrice() {
+        if (end != null) UserInterface.displayMessage("Total price for the parking session: " + price);
+        else UserInterface.displayMessage("Session is not over yet.");
     }
 }
