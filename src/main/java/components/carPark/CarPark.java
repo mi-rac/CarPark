@@ -12,7 +12,6 @@ import patterns.SingletonDecorator;
 public class CarPark extends SingletonDecorator<CarPark>
 {
     private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();
-
     ParkingList<Car> carSpaces;
     ParkingList<Motorcycle> motorcycleSpaces;
     ParkingList<Van> vanSpaces;
@@ -20,8 +19,8 @@ public class CarPark extends SingletonDecorator<CarPark>
     Sensor exitSensor;
     Barrier entryBarrier;
     Barrier exitBarrier;
-    EntryHandler entrySignalHandler;
-    ExitHandler exitSignalHandler;
+    EntryHandler entryHandler;
+    ExitHandler exitHandler;
 
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
@@ -38,13 +37,13 @@ public class CarPark extends SingletonDecorator<CarPark>
         entryBarrier = new Barrier();
         exitBarrier = new Barrier();
 
-        entrySignalHandler = new EntryHandler();
-        exitSignalHandler = new ExitHandler();
+        entryHandler = new EntryHandler();
+        exitHandler = new ExitHandler();
 
-        entrySensor.registerObserver(entrySignalHandler);
+        entrySensor.registerObserver(entryHandler);
         entrySensor.registerObserver(entryBarrier);
 
-        exitSensor.registerObserver(exitSignalHandler);
+        exitSensor.registerObserver(exitHandler);
         exitSensor.registerObserver(exitBarrier);
     }
 
@@ -60,7 +59,14 @@ public class CarPark extends SingletonDecorator<CarPark>
     public void exitSensorValue(boolean value, Vehicle vehicle) {
         exitSensor.changeSensorState(value, vehicle);
     }
-
+    public ParkingList getParkingList(String type) {
+        switch (type) {
+            case "car" -> {return carSpaces;}
+            case "motorcycle" -> {return motorcycleSpaces;}
+            case "van" -> {return vanSpaces;}
+            default -> {return null;}
+        }
+    }
     public static CarPark getInstance() {
         return singleton.getInstance(CarPark::new);
     }

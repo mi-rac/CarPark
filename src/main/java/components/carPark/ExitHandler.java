@@ -6,9 +6,9 @@ import patterns.Observer;
 
 public class ExitHandler implements Observer
 {
-    CarPark cp = CarPark.getInstance();
     @Override
     public void registerChange(boolean value, Vehicle vehicle) {
+        CarPark cp = CarPark.getInstance();
         ParkingList parkingList = null;
         if (value) {
             for (ParkingList list : new ParkingList[]{cp.carSpaces, cp.motorcycleSpaces, cp.vanSpaces}) {

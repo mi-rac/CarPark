@@ -9,8 +9,8 @@ import components.vehicle.Vehicle;
 import patterns.Observer;
 
 public class EntryHandler implements Observer {
-    CarPark cp = CarPark.getInstance();
     public void registerChange(boolean value, Vehicle vehicle) {
+        CarPark cp = CarPark.getInstance();
         ParkingList parkingList = null;
         String regNum;
         String type;
