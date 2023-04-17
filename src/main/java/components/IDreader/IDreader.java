@@ -2,10 +2,13 @@ package components.IDreader;
 
 import components.userInterface.UserInterface;
 
-public abstract class IDreader
+public class IDreader
 {
-    void String readID() {
-        regNum = UserInterface.getStringInput("Please enter registration number.");
-        type = UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
+    public static String getRegNum() {
+        return UserInterface.getStringInput("Please enter registration number.");
+    }
+
+    public static String getVehicleType() {
+        return UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
     }
 }

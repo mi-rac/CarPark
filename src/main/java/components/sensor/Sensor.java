@@ -16,12 +16,12 @@ public class Sensor<T extends Observer> extends ObservedDecorator<T>
     protected void setState(SensorState state) {
         this.state = state;
     }
-    public void changeSensorState(boolean sensing) {
-        changeSensorState(sensing, null);
-    }
-    // Detect a car
-    public void changeSensorState(boolean sensing, Vehicle vehicle) {
-        state.detectVehicle();
-        notifyObservers(sensing, vehicle);
+    public void changeSensorState(boolean value, Vehicle vehicle) {
+        if (value) {
+            state.detectVehicle();
+        } else {
+            state.clearVehicle();
+        }
+        notifyObservers(value, vehicle);
     }
 }

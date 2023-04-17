@@ -15,12 +15,12 @@ public class CarPark extends SingletonDecorator<CarPark>
     ParkingManager<Car> carSpaces;
     ParkingManager<Motorcycle> motorcycleSpaces;
     ParkingManager<Van> vanSpaces;
-    private Sensor entrySensor;
-    private Sensor exitSensor;
-    private Barrier entryBarrier;
-    private Barrier exitBarrier;
-    private EntrySignalHandler entrySignalHandler;
-    private ExitSignalHandler exitSignalHandler;
+    Sensor entrySensor;
+    Sensor exitSensor;
+    Barrier entryBarrier;
+    Barrier exitBarrier;
+    EntrySignalHandler entrySignalHandler;
+    ExitSignalHandler exitSignalHandler;
 
     //private List<IDReader> idReaders;
     //private FullSign fullSign;
@@ -47,16 +47,16 @@ public class CarPark extends SingletonDecorator<CarPark>
         exitSensor.registerObserver(exitBarrier);
     }
 
-    public void entrySensorVehiclePresent(boolean value) {
-        entrySensorVehiclePresent(value, null);
+    public void entrySensorValue(boolean value) {
+        entrySensorValue(value, null);
     }
-    public void exitSensorClearVehicle(boolean value) {
-        entrySensor.changeSensorState(false);
+    public void exitSensorValue(boolean value) {
+        exitSensorValue(value, null);
     }
-    public void entrySensorVehiclePresent(boolean value, Vehicle vehicle) {
+    public void entrySensorValue(boolean value, Vehicle vehicle) {
         entrySensor.changeSensorState(value, vehicle);
     }
-    public void exitSensorVehiclePresent(boolean value, Vehicle vehicle) {
+    public void exitSensorValue(boolean value, Vehicle vehicle) {
         exitSensor.changeSensorState(value, vehicle);
     }
 
