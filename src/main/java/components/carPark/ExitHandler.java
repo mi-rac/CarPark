@@ -4,6 +4,7 @@ import components.userInterface.UserInterface;
 import components.vehicle.Vehicle;
 import components.patterns.SensorObserver;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ExitHandler implements SensorObserver
@@ -24,6 +25,7 @@ public class ExitHandler implements SensorObserver
             parkingList.removeVehicle(vehicle);
 
             cp.exitBarrier.open();
+            FileLogger.updateInfo();
             UserInterface.displayMessage("You can now leave.");
         }
     }

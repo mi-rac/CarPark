@@ -30,4 +30,12 @@ public abstract class Vehicle<T extends ParkingSession> {
     protected void setType(String type) {
         this.type = type;
     }
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "regNum='" + regNum + '\'' +
+                ", type=" + type + '\'' +
+                ", session=" + session.toString() +
+                '}';
+    }
 }

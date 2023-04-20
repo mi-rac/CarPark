@@ -40,10 +40,10 @@ public abstract class ParkingSession implements ParkingSessionInterface
         duration = calculateDifferenceInHours();
         if (duration > 23) {
             duration = duration % 24;
-            UserInterface.displayMessage(String.format("Total duration: %d days.", duration));
+            UserInterface.displayMessage(String.format("\nTotal duration: %d days.", duration));
             return ParkingPrices.getRate(type, "day");
         } else {
-            UserInterface.displayMessage(String.format("Total duration: %d hours.", duration));
+            UserInterface.displayMessage(String.format("\nTotal duration: %d hours.", duration));
             return ParkingPrices.getRate(type, "hour");
         }
     }
@@ -56,5 +56,13 @@ public abstract class ParkingSession implements ParkingSessionInterface
 
     public String getBarcode() {
         return barcode;
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingSession{" +
+                "barcode='" + barcode + '\'' +
+                ", start=" + start.toString() +
+                '}';
     }
 }

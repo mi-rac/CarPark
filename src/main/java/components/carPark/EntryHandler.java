@@ -8,6 +8,8 @@ import components.vehicle.Van;
 import components.vehicle.Vehicle;
 import components.patterns.SensorObserver;
 
+import java.io.IOException;
+
 public class EntryHandler implements SensorObserver
 {
     @Override
@@ -38,6 +40,7 @@ public class EntryHandler implements SensorObserver
             }
             if (parkingList.addVehicle(vehicle)) {
                 cp.entryBarrier.open();
+                FileLogger.updateInfo();
                 UserInterface.displayMessage("Welcome. Come right through.");
             } else {
                 UserInterface.displayMessage("Sorry, no more spaces left");

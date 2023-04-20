@@ -44,7 +44,7 @@ public class CarPark extends SingletonDecorator<CarPark>
 
         entryHandler = new EntryHandler();
         exitHandler = new ExitHandler();
-        logger = new FileLogger();
+        logger = new FileLogger("src/main/logger.txt");
 
         entrySensor.registerObservers(new SensorObserver[]{entryHandler, entryBarrier});
         exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
