@@ -17,14 +17,10 @@ public class FileLogger {
         FileWriter writer = null;
         try {
             writer = new FileWriter(filePath);
-            for (Vehicle vehicle : (List<Vehicle>) cp.getParkingList("car").getVehicles()) {
-                writer.write(vehicle.toString() + "\n");
-            }
-            for (Vehicle vehicle : (List<Vehicle>) cp.getParkingList("motorcycle").getVehicles()) {
-                writer.write(vehicle.toString() + "\n");
-            }
-            for (Vehicle vehicle : (List<Vehicle>) cp.getParkingList("van").getVehicles()) {
-                writer.write(vehicle.toString() + "\n");
+            for (ParkingList list : new ParkingList[]{cp.carSpaces, cp.motorcycleSpaces, cp.vanSpaces}) {
+                for (Vehicle vehicle : (List<Vehicle>) list.getVehicles()) {
+                    writer.write(vehicle.toString() + "\n");
+                }
             }
             writer.close();
         } catch (IOException e) {
