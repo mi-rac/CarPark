@@ -16,9 +16,7 @@ public class CarParkSimulation {
             Thread.sleep(1000);
         }
 
-        Vehicle myCar = (Vehicle) cp.getParkingList("car").getVehicles().get(0);
-
-        cp.exitSensorValue(true, myCar);
+        cp.exitSensorValue(true);
         cp.exitSensorValue(false);
     }
 }

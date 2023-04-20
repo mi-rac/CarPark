@@ -1,40 +1,41 @@
 package components.carPark;
 
-import components.IDreader.IDreader;
+import components.IDreader.IDReader;
+import components.IDreader.RegNumReader;
 import components.userInterface.UserInterface;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
 import components.vehicle.Vehicle;
-import patterns.Observer;
+import patterns.SensorObserver;
 
-public class EntryHandler implements Observer {
-    public void registerChange(boolean value, Vehicle vehicle) {
+public class EntryHandler implements SensorObserver
+{
+    @Override
+    public void sensorUpdated(boolean value) {
         CarPark cp = CarPark.getInstance();
+        Vehicle vehicle;
         ParkingList parkingList = null;
-        String regNum;
-        String type;
+        RegNumReader reader = cp.entryRegNumReader;
 
         if (value) {
-            if (vehicle == null) {
-                regNum = IDreader.getRegNum();
-                type = IDreader.getVehicleType();
+            String regNum = reader.getID();
+            String type = reader.getVehicleType();
 
-                switch (type) {
-                    case "car" -> {
-                        vehicle = new Car(regNum);
-                        parkingList = cp.carSpaces;
-                    }
-                    case "motorcycle" -> {
-                        vehicle = new Motorcycle(regNum);
-                        parkingList = cp.motorcycleSpaces;
-                    }
-                    case "van" -> {
-                        vehicle = new Van(regNum);
-                        parkingList = cp.vanSpaces;
-                    }
-                    default -> vehicle = new Car(regNum);
+            switch (type) {
+                case "car" -> {
+                    vehicle = new Car(regNum);
+                    parkingList = cp.carSpaces;
                 }
+                case "motorcycle" -> {
+                    vehicle = new Motorcycle(regNum);
+                    parkingList = cp.motorcycleSpaces;
+                }
+                case "van" -> {
+                    vehicle = new Van(regNum);
+                    parkingList = cp.vanSpaces;
+                }
+                default -> vehicle = new Car(regNum);
             }
             if (parkingList.addVehicle(vehicle)) {
                 cp.entryBarrier.open();
@@ -42,8 +43,6 @@ public class EntryHandler implements Observer {
             } else {
                 UserInterface.displayMessage("Sorry, no more spaces left");
             }
-        } else {
-            cp.entryBarrier.close();
         }
     }
 }

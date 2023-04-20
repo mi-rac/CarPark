@@ -1,5 +1,7 @@
 package components.carPark;
 
+import components.IDreader.BarcodeReader;
+import components.IDreader.RegNumReader;
 import components.barrier.Barrier;
 import components.sensor.Sensor;
 import components.vehicle.Car;
@@ -7,7 +9,11 @@ import components.vehicle.Motorcycle;
 import components.vehicle.Van;
 import components.vehicle.Vehicle;
 import main.ParkingCapacity;
+import patterns.Observer;
+import patterns.SensorObserver;
 import patterns.SingletonDecorator;
+
+import java.util.ArrayList;
 
 public class CarPark extends SingletonDecorator<CarPark>
 {
@@ -17,6 +23,9 @@ public class CarPark extends SingletonDecorator<CarPark>
     ParkingList<Van> vanSpaces;
     Sensor entrySensor;
     Sensor exitSensor;
+    RegNumReader entryRegNumReader;
+    RegNumReader exitRegNumReader;
+    BarcodeReader exitBarcodeReader;
     Barrier entryBarrier;
     Barrier exitBarrier;
     EntryHandler entryHandler;
@@ -32,32 +41,24 @@ public class CarPark extends SingletonDecorator<CarPark>
         vanSpaces = new ParkingList<>(ParkingCapacity.getCapacity("van"));
 
         entrySensor = new Sensor();
-        exitSensor = new Sensor();
-
+        entryRegNumReader = new RegNumReader();
         entryBarrier = new Barrier();
-        exitBarrier = new Barrier();
-
         entryHandler = new EntryHandler();
+
+        exitSensor = new Sensor();
+        exitRegNumReader = new RegNumReader();
+        exitBarcodeReader = new BarcodeReader();
+        exitBarrier = new Barrier();
         exitHandler = new ExitHandler();
 
-        entrySensor.registerObserver(entryHandler);
-        entrySensor.registerObserver(entryBarrier);
-
-        exitSensor.registerObserver(exitHandler);
-        exitSensor.registerObserver(exitBarrier);
+        entrySensor.registerObservers(new SensorObserver[]{entryHandler, entryBarrier});
+        exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
     }
-
     public void entrySensorValue(boolean value) {
-        entrySensorValue(value, null);
+        entrySensor.changeSensorState(value);
     }
     public void exitSensorValue(boolean value) {
-        exitSensorValue(value, null);
-    }
-    public void entrySensorValue(boolean value, Vehicle vehicle) {
-        entrySensor.changeSensorState(value, vehicle);
-    }
-    public void exitSensorValue(boolean value, Vehicle vehicle) {
-        exitSensor.changeSensorState(value, vehicle);
+        exitSensor.changeSensorState(value);
     }
     public ParkingList getParkingList(String type) {
         switch (type) {

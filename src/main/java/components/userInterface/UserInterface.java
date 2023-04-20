@@ -3,15 +3,15 @@ package components.userInterface;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public interface UserInterface
+public class UserInterface
 {
-    Scanner stdin = new Scanner(System.in);
+    static Scanner stdin = new Scanner(System.in);
 
-    static void displayMessage(String message) {
+    public static void displayMessage(String message) {
         System.out.println(message);
     }
 
-    static String getStringInput(String prompt) {
+    public static String getStringInput(String prompt) {
         System.out.println(prompt);
         return stdin.nextLine();
     }
@@ -24,7 +24,7 @@ public interface UserInterface
         return res;
     }
 
-    static String multipleChoice(String prompt, String[] choices) {
+    public static String multipleChoice(String prompt, String[] choices) {
         String input;
         do {
             input = getStringInput(prompt.concat(Arrays.toString(choices)));
