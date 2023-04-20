@@ -1,4 +1,4 @@
-package patterns;
+package components.patterns;
 
 import java.util.function.Supplier;
 

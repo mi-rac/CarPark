@@ -1,8 +1,6 @@
 package components.barrier;
 
-import components.vehicle.Vehicle;
-import patterns.Observer;
-import patterns.SensorObserver;
+import components.patterns.SensorObserver;
 
 public class Barrier implements SensorObserver, BarrierState
 {

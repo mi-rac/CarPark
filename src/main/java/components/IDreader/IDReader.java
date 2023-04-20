@@ -10,6 +10,6 @@ public abstract class IDReader
     }
 
     public String getVehicleType() {
-        return UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
+        return UserInterface.multipleChoice("\nPlease enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
     }
 }

@@ -7,13 +7,9 @@ import components.sensor.Sensor;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
-import components.vehicle.Vehicle;
 import main.ParkingCapacity;
-import patterns.Observer;
-import patterns.SensorObserver;
-import patterns.SingletonDecorator;
-
-import java.util.ArrayList;
+import components.patterns.SensorObserver;
+import components.patterns.SingletonDecorator;
 
 public class CarPark extends SingletonDecorator<CarPark>
 {
@@ -31,7 +27,6 @@ public class CarPark extends SingletonDecorator<CarPark>
     EntryHandler entryHandler;
     ExitHandler exitHandler;
 
-    //private List<IDReader> idReaders;
     //private FullSign fullSign;
     //private DataHandler dataHandler;
 
@@ -40,12 +35,12 @@ public class CarPark extends SingletonDecorator<CarPark>
         motorcycleSpaces = new ParkingList<>(ParkingCapacity.getCapacity("motorcycle"));
         vanSpaces = new ParkingList<>(ParkingCapacity.getCapacity("van"));
 
-        entrySensor = new Sensor();
+        entrySensor = new Sensor("entry");
         entryRegNumReader = new RegNumReader();
         entryBarrier = new Barrier();
         entryHandler = new EntryHandler();
 
-        exitSensor = new Sensor();
+        exitSensor = new Sensor("exit");
         exitRegNumReader = new RegNumReader();
         exitBarcodeReader = new BarcodeReader();
         exitBarrier = new Barrier();
@@ -55,10 +50,10 @@ public class CarPark extends SingletonDecorator<CarPark>
         exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
     }
     public void entrySensorValue(boolean value) {
-        entrySensor.changeSensorState(value);
+        entrySensor.changeSensorState(value, "entry");
     }
     public void exitSensorValue(boolean value) {
-        exitSensor.changeSensorState(value);
+        exitSensor.changeSensorState(value, "exit");
     }
     public ParkingList getParkingList(String type) {
         switch (type) {

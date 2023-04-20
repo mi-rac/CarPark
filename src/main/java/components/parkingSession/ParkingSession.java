@@ -23,7 +23,7 @@ public abstract class ParkingSession
         Random rand = new Random();
         start = LocalDateTime.now();
         barcode = String.valueOf(rand.nextInt(100000 - 10000 + 1) + 10000);
-        UserInterface.displayMessage("Your barcode is: " + barcode);
+        UserInterface.displayMessage("\nYour barcode is: " + barcode + "\n");
     }
     public void endSession(String type){
         end = LocalDateTime.now();
@@ -49,7 +49,7 @@ public abstract class ParkingSession
     }
     protected void displayPrice() {
         if (end != null) {
-            UserInterface.displayMessage("Total price for the parking session: " + price);
+            UserInterface.displayMessage("Total price for the parking session: £" + price);
         }
         else UserInterface.displayMessage("Session is not over yet.");
     }

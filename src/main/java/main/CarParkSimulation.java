@@ -1,7 +1,6 @@
 package main;
 
 import components.carPark.CarPark;
-import components.vehicle.Vehicle;
 
 public class CarParkSimulation {
 
@@ -17,6 +16,7 @@ public class CarParkSimulation {
         }
 
         cp.exitSensorValue(true);
+        Thread.sleep(1000);
         cp.exitSensorValue(false);
     }
 }

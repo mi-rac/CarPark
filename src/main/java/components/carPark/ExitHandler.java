@@ -2,7 +2,7 @@ package components.carPark;
 
 import components.userInterface.UserInterface;
 import components.vehicle.Vehicle;
-import patterns.SensorObserver;
+import components.patterns.SensorObserver;
 
 import java.util.List;
 
@@ -14,12 +14,18 @@ public class ExitHandler implements SensorObserver
     @Override
     public void sensorUpdated(boolean value) {
         CarPark cp = CarPark.getInstance();
-        String readerType = UserInterface.multipleChoice("What are we scanning today?", new String[]{"regNum", "barcode"});
-        handleExit(readerType);
-        vehicle.getSession().endSession(vehicle.getType());
-        parkingList.removeVehicle(vehicle);
-        cp.exitBarrier.open();
-        UserInterface.displayMessage("You can now leave.");
+        if (value) {
+            String readerType = UserInterface.multipleChoice("What are we scanning today?", new String[]{"regNum", "barcode"});
+
+            while (true) {
+                if (handleExit(readerType)) break;
+            }
+            vehicle.getSession().endSession(vehicle.getType());
+            parkingList.removeVehicle(vehicle);
+
+            cp.exitBarrier.open();
+            UserInterface.displayMessage("You can now leave.");
+        }
     }
 
     private boolean handleExit(String readerType) {
@@ -34,7 +40,7 @@ public class ExitHandler implements SensorObserver
                 }
             }
         }
-        UserInterface.displayMessage("Invalid ID");
+        UserInterface.displayMessage("\nInvalid ID\n");
         return false;
     }
 }

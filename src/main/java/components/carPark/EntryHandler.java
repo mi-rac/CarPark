@@ -1,13 +1,12 @@
 package components.carPark;
 
-import components.IDreader.IDReader;
 import components.IDreader.RegNumReader;
 import components.userInterface.UserInterface;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
 import components.vehicle.Vehicle;
-import patterns.SensorObserver;
+import components.patterns.SensorObserver;
 
 public class EntryHandler implements SensorObserver
 {

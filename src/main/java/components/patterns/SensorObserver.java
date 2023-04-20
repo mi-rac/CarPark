@@ -1,4 +1,4 @@
-package patterns;
+package components.patterns;
 
 public interface SensorObserver extends Observer
 {
