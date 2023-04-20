@@ -18,7 +18,7 @@ public class Sensor extends ObservedDecorator
     protected void setState(SensorState state) {
         this.state = state;
     }
-    public void changeSensorState(boolean value, String id) {
+    public void changeSensorState(boolean value) {
         if (value) {
             state.detectVehicle(id);
         } else {

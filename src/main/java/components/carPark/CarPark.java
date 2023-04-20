@@ -38,22 +38,23 @@ public class CarPark extends SingletonDecorator<CarPark>
         entrySensor = new Sensor("entry");
         entryRegNumReader = new RegNumReader();
         entryBarrier = new Barrier();
-        entryHandler = new EntryHandler();
 
         exitSensor = new Sensor("exit");
         exitRegNumReader = new RegNumReader();
         exitBarcodeReader = new BarcodeReader();
         exitBarrier = new Barrier();
+
+        entryHandler = new EntryHandler();
         exitHandler = new ExitHandler();
 
         entrySensor.registerObservers(new SensorObserver[]{entryHandler, entryBarrier});
         exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
     }
     public void entrySensorValue(boolean value) {
-        entrySensor.changeSensorState(value, "entry");
+        entrySensor.changeSensorState(value);
     }
     public void exitSensorValue(boolean value) {
-        exitSensor.changeSensorState(value, "exit");
+        exitSensor.changeSensorState(value);
     }
     public ParkingList getParkingList(String type) {
         switch (type) {
