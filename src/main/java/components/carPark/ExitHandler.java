@@ -23,6 +23,5 @@ public class ExitHandler implements Observer
         } else {
             cp.exitBarrier.close();
         }
-
     }
 }
