@@ -26,9 +26,7 @@ public class CarPark extends SingletonDecorator<CarPark>
     Barrier exitBarrier;
     EntryHandler entryHandler;
     ExitHandler exitHandler;
-
-    //private FullSign fullSign;
-    //private DataHandler dataHandler;
+    FileLogger logger;
 
     private CarPark() {
         carSpaces = new ParkingList<>(ParkingCapacity.getCapacity("car"));
@@ -46,6 +44,7 @@ public class CarPark extends SingletonDecorator<CarPark>
 
         entryHandler = new EntryHandler();
         exitHandler = new ExitHandler();
+        logger = new FileLogger();
 
         entrySensor.registerObservers(new SensorObserver[]{entryHandler, entryBarrier});
         exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
