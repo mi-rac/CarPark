@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public abstract class ParkingSession
+public abstract class ParkingSession implements ParkingSessionInterface
 {
     protected String barcode;
     protected LocalDateTime start;

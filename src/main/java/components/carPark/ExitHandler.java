@@ -15,12 +15,12 @@ public class ExitHandler implements SensorObserver
     public void sensorUpdated(boolean value) {
         CarPark cp = CarPark.getInstance();
         if (value) {
-            String readerType = UserInterface.multipleChoice("What are we scanning today?", new String[]{"regNum", "barcode"});
+            String readerType = UserInterface.multipleChoice("What are we scanning today? ", new String[]{"regNum", "barcode"});
 
             while (true) {
                 if (handleExit(readerType)) break;
             }
-            vehicle.getSession().endSession(vehicle.getType());
+            vehicle.getSession().endSession();
             parkingList.removeVehicle(vehicle);
 
             cp.exitBarrier.open();

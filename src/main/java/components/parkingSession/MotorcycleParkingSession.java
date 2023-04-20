@@ -2,8 +2,7 @@ package components.parkingSession;
 
 public class MotorcycleParkingSession extends ParkingSession
 {
-    @Override
-    public void endSession(String type) {
+    public void endSession() {
         super.endSession("motorcycle");
     }
 }
