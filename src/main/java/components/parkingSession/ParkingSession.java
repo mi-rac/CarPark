@@ -25,11 +25,10 @@ public abstract class ParkingSession implements ParkingSessionInterface
         barcode = String.valueOf(rand.nextInt(100000 - 10000 + 1) + 10000);
         UserInterface.displayMessage("\nYour barcode is: " + barcode + "\n");
     }
-    public void endSession(String type){
+    protected void endSession(String type){
         end = LocalDateTime.now();
         priceRate = setPriceRate(type);
         price = duration * priceRate;
-        displayPrice();
     }
     protected int calculateDifferenceInHours(){
         Duration timeInterval = Duration.between(start, end);
