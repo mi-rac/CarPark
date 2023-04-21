@@ -13,7 +13,7 @@ public class ClosedBarrierState implements BarrierState {
     @Override
     public void open() {
         // Set state to open
-        UserInterface.displayMessage("Entrance barrier opening.");
+        UserInterface.displayMessage("Barrier opening.");
         barrier.setState(new OpenBarrierState(barrier));
     }
 

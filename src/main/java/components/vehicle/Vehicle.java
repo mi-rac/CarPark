@@ -30,4 +30,12 @@ public abstract class Vehicle {
     protected void setType(String type) {
         this.type = type;
     }
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "regNum='" + regNum + '\'' +
+                ", type=" + type + '\'' +
+                ", session=" + session.toString() +
+                '}';
+    }
 }

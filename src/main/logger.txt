@@ -1,0 +1,2 @@
+Vehicle{regNum='MIHAI', type=car', session=ParkingSession{barcode='25172', start=2023-04-21T19:13:02.463072}}
+Vehicle{regNum='PARIS', type=car', session=ParkingSession{barcode='74887', start=2023-04-21T19:13:07.855462}}

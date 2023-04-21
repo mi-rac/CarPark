@@ -5,12 +5,12 @@ import components.vehicle.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingManager<T extends Vehicle>
+public class ParkingList<T extends Vehicle>
 {
     private List<T> vehicles;
     private int capacity;
 
-    public ParkingManager(int capacity) {
+    public ParkingList(int capacity) {
         this.capacity = capacity;
         vehicles = new ArrayList<>();
     }

@@ -1,33 +1,34 @@
 package components.sensor;
 
-import patterns.ObservedDecorator;
+import components.patterns.ObservedDecorator;
+import components.patterns.SensorObserver;
+import java.util.List;
 
 // Sensor class - represents a sensor that detects the presence of a car
-public class Sensor extends ObservedDecorator<SensorObserver> implements SensorState
+public class Sensor extends ObservedDecorator
 {
     private SensorState state;
+    String id;
 
-    public Sensor() {
+    public Sensor(String id) {
         state = new CarNotDetectedState(this);
+        this.id = id;
     }
     // Set the state of the Sensor
     protected void setState(SensorState state) {
         this.state = state;
     }
-    // Detect a car
-    public void detectVehicle() {
-        state.detectVehicle();
-        notifyObservers(true);
+    public void changeSensorState(boolean value) {
+        if (value) {
+            state.detectVehicle(id);
+        } else {
+            state.clearVehicle(id);
+        }
+        notifyObservers(value);
     }
-    // Clear a car from the sensor
-    public void clearVehicle() {
-        state.clearVehicle();
-        notifyObservers(false);
-    }
-    @Override
     public void notifyObservers(boolean value) {
-        for (SensorObserver observer : super.getObserverList()) {
-            observer.sensorUpdate(value);
+        for (SensorObserver observer : (List<SensorObserver>) getObserverList()) {
+            observer.sensorUpdated(value);
         }
     }
 }

@@ -1,89 +1,68 @@
 package components.carPark;
 
+import components.IDreader.BarcodeReader;
+import components.IDreader.RegNumReader;
 import components.barrier.Barrier;
 import components.sensor.Sensor;
-import components.sensor.SensorObserver;
-import components.userInterface.UserInterface;
 import components.vehicle.Car;
 import components.vehicle.Motorcycle;
 import components.vehicle.Van;
-import components.vehicle.Vehicle;
 import main.ParkingCapacity;
-import patterns.SingletonDecorator;
+import components.patterns.SensorObserver;
+import components.patterns.SingletonDecorator;
 
-public class CarPark extends SingletonDecorator<CarPark> implements SensorObserver
+public class CarPark extends SingletonDecorator<CarPark>
 {
     private static final SingletonDecorator<CarPark> singleton = new SingletonDecorator<>();
-    private ParkingManager<Car> carSpaces;
-    private ParkingManager<Motorcycle> motorcycleSpaces;
-    private ParkingManager<Van> vanSpaces;
-    private Sensor entranceSensor;
-    private Sensor exitSensor;
-    private Barrier entranceBarrier;
-    private Barrier exitBarrier;
-
-    //private List<IDReader> idReaders;
-    //private FullSign fullSign;
-    //private DataHandler dataHandler;
+    ParkingList<Car> carSpaces;
+    ParkingList<Motorcycle> motorcycleSpaces;
+    ParkingList<Van> vanSpaces;
+    Sensor entrySensor;
+    Sensor exitSensor;
+    RegNumReader entryRegNumReader;
+    RegNumReader exitRegNumReader;
+    BarcodeReader exitBarcodeReader;
+    Barrier entryBarrier;
+    Barrier exitBarrier;
+    EntryHandler entryHandler;
+    ExitHandler exitHandler;
+    FileLogger logger;
 
     private CarPark() {
-        carSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("car"));
-        motorcycleSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("motorcycle"));
-        vanSpaces = new ParkingManager<>(ParkingCapacity.getCapacity("van"));
+        carSpaces = new ParkingList<>(ParkingCapacity.getCapacity("car"));
+        motorcycleSpaces = new ParkingList<>(ParkingCapacity.getCapacity("motorcycle"));
+        vanSpaces = new ParkingList<>(ParkingCapacity.getCapacity("van"));
 
-        entranceSensor = new Sensor();
-        exitSensor = new Sensor();
+        entrySensor = new Sensor("entry");
+        entryRegNumReader = new RegNumReader();
+        entryBarrier = new Barrier();
 
-        entranceBarrier = new Barrier();
+        exitSensor = new Sensor("exit");
+        exitRegNumReader = new RegNumReader();
+        exitBarcodeReader = new BarcodeReader();
         exitBarrier = new Barrier();
 
-        entranceSensor.registerObserver(this);
-        entranceSensor.registerObserver(entranceBarrier);
+        entryHandler = new EntryHandler();
+        exitHandler = new ExitHandler();
+        logger = new FileLogger("src/main/logger.txt");
+
+        entrySensor.registerObservers(new SensorObserver[]{entryHandler, entryBarrier});
+        exitSensor.registerObservers(new SensorObserver[]{exitHandler, exitBarrier});
     }
-
-    @Override
-    public void sensorUpdate(boolean vehiclePresent) {
-        ParkingManager parkingManager = null;
-        Vehicle vehicle = null;
-        String regNum;
-        String type;
-
-        if (vehiclePresent) {
-            regNum = UserInterface.getStringInput("Please enter registration number.");
-            type = UserInterface.multipleChoice("Please enter vehicle type. ", new String[]{"car", "motorcycle", "van"});
-
-            switch (type) {
-                case "car" -> {
-                    vehicle = new Car(regNum);
-                    parkingManager = carSpaces;
-                }
-                case "motorcycle" -> {
-                    vehicle = new Motorcycle(regNum);
-                    parkingManager = motorcycleSpaces;
-                }
-                case "van" -> {
-                    vehicle = new Van(regNum);
-                    parkingManager = vanSpaces;
-                }
-                default -> vehicle = new Car(regNum);
-            }
-            if (parkingManager.addVehicle(vehicle)) {
-                entranceBarrier.open();
-                UserInterface.displayMessage("Welcome. Come right through.");
-            } else {
-                UserInterface.displayMessage("Sorry, no more spaces left");
-            }
+    public void entrySensorValue(boolean value) {
+        entrySensor.changeSensorState(value);
+    }
+    public void exitSensorValue(boolean value) {
+        exitSensor.changeSensorState(value);
+    }
+    public ParkingList getParkingList(String type) {
+        switch (type) {
+            case "car" -> {return carSpaces;}
+            case "motorcycle" -> {return motorcycleSpaces;}
+            case "van" -> {return vanSpaces;}
+            default -> {return null;}
         }
     }
-
-    public void entranceSensorDetectVehicle() {
-        entranceSensor.detectVehicle();
-    }
-
-    public void entranceSensorClearVehicle() {
-        entranceSensor.clearVehicle();
-    }
-
     public static CarPark getInstance() {
         return singleton.getInstance(CarPark::new);
     }

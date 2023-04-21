@@ -17,7 +17,7 @@ public class OpenBarrierState implements BarrierState {
     @Override
     public void close() {
         // Set state to closed
-        UserInterface.displayMessage("Entrance barrier closing.");
+        UserInterface.displayMessage("Barrier closing.");
         barrier.setState(new ClosedBarrierState(barrier));
     }
 }
