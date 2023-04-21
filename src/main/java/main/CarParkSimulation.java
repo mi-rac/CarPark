@@ -12,11 +12,11 @@ public class CarParkSimulation {
             cp.entrySensorValue(true);
             Thread.sleep(500);
             cp.entrySensorValue(false);
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }
 
         cp.exitSensorValue(true);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         cp.exitSensorValue(false);
     }
 }

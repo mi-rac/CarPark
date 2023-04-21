@@ -38,8 +38,8 @@ public abstract class ParkingSession implements ParkingSessionInterface
     }
     protected double setPriceRate(String type){
         duration = calculateDifferenceInHours();
-        if (duration > 23) {
-            duration = duration % 24;
+        if (duration > 24) {
+            duration = duration / 24 + 1;
             UserInterface.displayMessage(String.format("\nTotal duration: %d days.", duration));
             return ParkingPrices.getRate(type, "day");
         } else {
