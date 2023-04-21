@@ -34,3 +34,5 @@ build/
 ### Mac OS ###
 .DS_Store
 
+/src/main/allCode.java
+/src/main/java/main/FileMerger.java

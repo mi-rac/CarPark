@@ -29,4 +29,7 @@ public class Barrier implements SensorObserver, BarrierState
     }
 
 
+    public boolean isOpen() {
+        return (state instanceof OpenBarrierState);
+    }
 }
