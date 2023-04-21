@@ -1,2 +1,2 @@
-Vehicle{regNum='WM09OTU', type=car', session=ParkingSession{barcode='42669', start=2023-04-20T20:18:19.277363}}
-Vehicle{regNum='AI', type=car', session=ParkingSession{barcode='91649', start=2023-04-20T20:18:23.788196}}
+Vehicle{regNum='MIHAI', type=car', session=ParkingSession{barcode='83716', start=2023-04-21T11:33:02.618099}}
+Vehicle{regNum='', type=car', session=ParkingSession{barcode='88356', start=2023-04-21T11:33:05.402298}}
