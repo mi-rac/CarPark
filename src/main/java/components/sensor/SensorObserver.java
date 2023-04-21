@@ -1,6 +1,6 @@
 package components.sensor;
 
-import patterns.Observer;
+import components.patterns.Observer;
 
 public interface SensorObserver extends Observer
 {

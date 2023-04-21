@@ -29,6 +29,7 @@ public abstract class ParkingSession implements ParkingSessionInterface
         end = LocalDateTime.now();
         priceRate = setPriceRate(type);
         price = duration * priceRate;
+        displayPrice();
     }
     protected int calculateDifferenceInHours(){
         Duration timeInterval = Duration.between(start, end);
